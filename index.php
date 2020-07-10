@@ -37,8 +37,14 @@ if(isset($_POST['btnlogin']))
          $_SESSION['Full Name']  =    $GetUser['FirstName'].' '.$GetUser['LastName'];
          $_SESSION['Email'] =  $Email;
          $_SESSION['IdDept'] = $GetUser['IdDept'];
+         
+         $UserId = $_SESSION['UserId'];
+         $Agent = $_SERVER['HTTP_USER_AGENT'];
+         $Ip = $_SERVER['REMOTE_ADDR'];
+         $SetLog = mysqli_query($conn , "INSERT INTO `tblclient`(`IdUser`, `Agent`, `Ip`) VALUES ('$UserId',
+         	'$Agent','$Ip'");
 
-         header('Location: '.'index.php')
+         header('Location: '.'index.php');
      
       }
       else
