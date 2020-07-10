@@ -48,6 +48,7 @@ session_start();
          $_SESSION['UserId'] = $GetUser['Id'];
          $_SESSION['Full Name']  =    $FName.' '.$LName;
          $_SESSION['Email'] =  $Email;
+         $_SESSION['IdDept'] = $GetUser['IdDept'];
 
 
          $UserId = $GetUser['Id'];

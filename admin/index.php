@@ -1,3 +1,16 @@
+<!-- Admin Options -->
+<?php
+require '../DBcon.php';
+session_start();
+  if($_SESSION['IdDept'] <> '1')
+  {
+      header('Location: '.'../index.php');
+  }
+    
+  }
+
+  ?>
+
 <!DOCTYPE html>
 <html>
 <head>
