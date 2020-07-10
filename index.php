@@ -26,7 +26,8 @@ if(isset($_POST['btnlogin']))
 	 $Email    = $_POST['email'];
      $Password = $_POST['password'];
 
-     $CheckUser = mysqli_query($conn, "SELECT * FROM tblusere WHERE Email='$Email' and Password='$Password'")
+     $CheckUser = mysqli_query($conn, "SELECT * FROM tblusere WHERE Email='$Email' and Password='$Password'
+                                       And IsBlocked = 0")
                  or die(mysqli_error($conn));
      $count = mysqli_num_GetUsers($CheckUser);
 
