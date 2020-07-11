@@ -5,9 +5,10 @@ session_start();
   if(!empty($_SESSION['UserId']))
   {
     $UserId = $_SESSION['UserId'];
-    $GetUserDeptExcute = mysqli_fetch_assoc($conn , "SELECT tblusers.Id, tbldepts.Dept FROM tblusers
-                                                     INNER JOIN tbldepts ON tblusers.IdDept = tbldepts.Id
-                                                     WHERE tblusers.Id = '$UserId'");
+    $GetUserDept = mysqli_query($conn , "SELECT tblusers.Id, tbldepts.Dept FROM tblusers
+                                         INNER JOIN tbldepts ON tblusers.IdDept = tbldepts.Id
+                                         WHERE tblusers.Id = '$UserId'");
+    $GetUserDeptExcute = mysqli_fetch_assoc($GetUserDept);
     $Dept =$GetUserDeptExcute['Dept'];
     if ($Dept == 'Admin') {
       header('Location: '.'admin/index.php');
@@ -37,21 +38,22 @@ session_start();
        $Ip = $_SERVER['REMOTE_ADDR'];
 
 
-       $RegisterUser = mysqli_query($conn , "INSERT INTO `tblusers`(`FirstName`, `LastName`, `Email`, `Password`, `IdDept`) 
-                                             VALUES ('$FName' , '$LName' ,'$Email' , '$Password' , '$Dept')") 
+       $RegisterUser = mysqli_query($conn , "INSERT INTO `tblusers`(`FirstName`, `LastName`, `Email`, `Password`, `IdDept`)                                  VALUES ('$FName' , '$LName' ,'$Email' , '$Password' , '$Dept')") 
                        or die(mysqli_error($conn));
 
        if($RegisterUser)
        {
-         $GetUser = mysqli_fetch_assoc($conn , "SELECT * FROM `tblusers` WHERE `Email` = '$Email'");
+
+         $GetUser = mysqli_query($conn , "SELECT * FROM `tblusers` WHERE `Email` = '$Email'");
+         $GetUserExc = mysqli_fetch_assoc($GetUser);
              
-         $_SESSION['UserId'] = $GetUser['Id'];
+         $_SESSION['UserId'] = $GetUserExc['Id'];
          $_SESSION['Full Name']  =    $FName.' '.$LName;
          $_SESSION['Email'] =  $Email;
-         $_SESSION['IdDept'] = $GetUser['IdDept'];
+         $_SESSION['IdDept'] = $GetUserExc['IdDept'];
 
 
-         $UserId = $GetUser['Id'];
+         $UserId = $GetUserExc['Id'];
          $Agent = $_SERVER['HTTP_USER_AGENT'];
          $Ip = $_SERVER['REMOTE_ADDR'];
          $SetLog = mysqli_query($conn , "INSERT INTO `tblclient`(`IdUser`, `Agent`, `Ip`) VALUES ('$UserId',
@@ -75,21 +77,46 @@ session_start();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="content/css/bootstrap.min.css">
 
-    <title>Tcc - Home</title>
+    <title>Register - TCC</title>
   </head>
   <body>
-
     <form method="post" class="container pt-5">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputFname">First Name</label>
+      <input type="text" name="fname" class="form-control" id="inputFname">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputLname">Last Name</label>
+      <input type="text" name="lname" class="form-control" id="inputLname">
+    </div>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" name="email" class="form-control" id="inputEmail4">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Password</label>
+      <input type="password" name="password" class="form-control" id="inputPassword4">
+    </div>
   </div>
-  <button type="submit" name="btnlogin" class="btn" style="background-color: purple">Log in</button>
+
+
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">Dept</label>
+      <select id="inputState" name="dept" class="form-control">
+        <option value="3">Software</option>
+        <option value="4">Networks</option>
+        <option value="5">Computers</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" name="btnregister" class="btn" style="background-color: purple">Register</button> <br>
+  <a href="index.php">Or Login</a>
 </form>
 
 

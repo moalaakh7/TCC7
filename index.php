@@ -43,8 +43,7 @@ if(isset($_POST['btnlogin']))
          $UserId = $_SESSION['UserId'];
          $Agent = $_SERVER['HTTP_USER_AGENT'];
          $Ip = $_SERVER['REMOTE_ADDR'];
-         $SetLog = mysqli_query($conn , "INSERT INTO `tblclient`(`IdUser`, `Agent`, `Ip`) VALUES ('$UserId',
-         	'$Agent','$Ip'");
+         $SetLog = mysqli_query($conn , "INSERT INTO `tblclient`(`IdUser`, `Agent`, `Ip`) VALUES ('$UserId','$Agent','$Ip')");
 
          header('Location: '.'index.php');
      
@@ -82,7 +81,8 @@ if(isset($_POST['btnlogin']))
     <label for="exampleInputPassword1">Password</label>
     <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
   </div>
-  <button type="submit" name="btnlogin" class="btn" style="background-color: purple">Log in</button>
+  <button type="submit" name="btnlogin" class="btn" style="background-color: purple">Log in</button><br>
+  <a href="register.php">Craete New Accounnt ?! </a>
 </form>
 
 
