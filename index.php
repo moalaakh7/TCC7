@@ -5,9 +5,10 @@ session_start();
   if(!empty($_SESSION['UserId']))
   {
   	$UserId = $_SESSION['UserId'];
-  	$GetUserDeptExcute = mysqli_fetch_assoc($conn , "SELECT tblusers.Id, tbldepts.Dept FROM tblusers
-                                                     INNER JOIN tbldepts ON tblusers.IdDept = tbldepts.Id
-                                                     WHERE tblusers.Id = '$UserId'");
+    $GetUserDept = mysqli_query($conn , "SELECT tblusers.Id, tbldepts.Dept FROM tblusers
+                                         INNER JOIN tbldepts ON tblusers.IdDept = tbldepts.Id
+                                         WHERE tblusers.Id = '$UserId'");
+  	$GetUserDeptExcute = mysqli_fetch_assoc($GetUserDept);
   	$Dept =$GetUserDeptExcute['Dept'];
   	if ($Dept == 'Admin') {
   		header('Location: '.'admin/index.php');
