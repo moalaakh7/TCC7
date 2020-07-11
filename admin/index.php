@@ -13,10 +13,28 @@ session_start();
 
 <!DOCTYPE html>
 <html>
-<head>
+ <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../content/css/bootstrap.min.css">
 	<title>Admin - Home</title>
 </head>
-<body>
+<body class="container pt-5">
+	<h1 class="center">Admin Options</h1>
+	<div class="list-group">
+  <a class="list-group-item list-group-item-action" href="depts/manage.php">Depts</a>
+  <a class="list-group-item list-group-item-action" href="subjects/manage.php">Subjects</a>
+  <a class="list-group-item list-group-item-action" href="tests/manage.php">Tests</a>
+  <a class="list-group-item list-group-item-action" href="users/manage.php">Users</a>
+  <a class="list-group-item list-group-item-danger" href="../logout.php">LogOut</a>
+</div>
 
-</body>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="../content/js/bootstrap.min.js"></script>
+  </body>
 </html>

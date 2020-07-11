@@ -56,8 +56,7 @@ session_start();
          $UserId = $GetUserExc['Id'];
          $Agent = $_SERVER['HTTP_USER_AGENT'];
          $Ip = $_SERVER['REMOTE_ADDR'];
-         $SetLog = mysqli_query($conn , "INSERT INTO `tblclient`(`IdUser`, `Agent`, `Ip`) VALUES ('$UserId',
-          '$Agent','$Ip'");
+         $SetLog = mysqli_query($conn , "INSERT INTO `tblclient`(`IdUser`, `Agent`, `Ip`) VALUES ('$UserId','$Agent','$Ip')");
 
          header('Location: '.'index.php');
        }
