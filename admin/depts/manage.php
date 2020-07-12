@@ -10,6 +10,15 @@ session_start();
   
   $GetDepts = mysqli_query($conn , "SELECT * FROM `tbldepts`");
 
+  if (isset($_POST['btnadd'])) {
+    
+    $Dept = $_POST['dept'];
+  	mysqli_query($conn, "INSERT INTO tbldepts (`Dept`) VALUES ('$Dept')");
+  	 header('Location: '.'manage.php');
+  	 exit();
+  			
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +34,17 @@ session_start();
 </head>
 <body class="container pt-5">
     <h1>Manage Depts</h1>
+
+    <form method="post">
+	<div class="input-group mb-3">
+	   <input type='text' name='dept' class='form-control' aria-describedby='button-addon2' placeholder="Dept Name">
+  
+     <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="submit" name="btnadd" id="button-addon2">Add New</button>
+    </div>
+    </div>
+    </form>
+
 	<table id="tbldept" class="table table-striped table-bordered" style="width:100%">
 
         <thead>
