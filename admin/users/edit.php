@@ -11,17 +11,28 @@ session_start();
 
   $UserId = $_GET['id'];
   $GetUser = mysqli_query($conn , "SELECT tblusers.* , tbldepts.Dept FROM tblusers 
-                                          INNER JOIN tbldepts ON tblusers.IdDept = tbldepts.Id
-                                          WHERE Id = '$UserId'");
+                                   INNER JOIN tbldepts ON tblusers.IdDept = tbldepts.Id  
+                                   WHERE tblusers.Id = '$UserId'");
   if ($GetUser) {
        $GetUserExcu = mysqli_fetch_assoc($GetUser);
   }
 
   if (isset($_POST['btnedit'])) {
+    $Fname = $_POST['fname'];
+    $Lname = $_POST['lname'];
+    $Email = $_POST['email'];
+    $Password = $_POST['password'];
+    if (isset($_POST['IsBlocked'])) {
+       $IsBlocked = 1;
+    }
+    else{
+        $IsBlocked = 0;
+    }
     
-    $Dept = $_POST['dept'];
-    $Subject = $_POST['subject'];
-    mysqli_query($conn, "UPDATE `tblsubjects` SET `Subject`='$Subject',`IdDept`='$Dept' WHERE Id = '$SubjectId'  ");
+
+    mysqli_query($conn, "UPDATE `tblusers` SET `FirstName`='$Fname',`LastName`='$Lname', `Email`='$Email',
+                         `Password`='$Password', `IsBlocked` = '$IsBlocked'
+                          WHERE Id = '$UserId'");
      header('Location: '.'manage.php');
      exit();
         
@@ -46,25 +57,48 @@ session_start();
   <form method="post">
     <div class="form-group">
     <label for="exampleInputfname">First Name</label>
-    <input type="text" name="fname" class="form-control" id="exampleInputfname">
+    <?php      
+    echo ' <input type="text" name="fname" value="'.$GetUserExcu["FirstName"].'" class="form-control" id="exampleInputfname">';
+    ?>
+   
   </div>
   <div class="form-group">
     <label for="exampleInputlname">Last Name</label>
-    <input type="text" name="lname" class="form-control" id="exampleInputlname">
+     <?php      
+    echo ' <input type="text" name="lname" value="'.$GetUserExcu["LastName"].'" class="form-control" id="exampleInputlname">';
+    ?>
   </div>
+
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+     <?php      
+    echo ' <input type="email" name="email" value="'.$GetUserExcu["Email"].'" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">';
+
+    ?>
   </div>
+
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+     <?php      
+    echo ' <input type="text" name="password" value="'.$GetUserExcu["Password"].'" class="form-control" id="exampleInputPassword1">';
+
+    ?>
   </div>
+
   <div class="form-group form-check">
-    <input type="checkbox" name="isBlock" class="form-check-input" id="exampleCheck1">
+     <?php      
+     if ($GetUserExcu["IsBlocked"] == 0) {
+         echo '<input type="checkbox" name="IsBlocked" class="form-check-input" id="exampleCheck1">';
+     }
+     else{
+          echo '<input type="checkbox" checked="" name="IsBlocked" class="form-check-input" id="exampleCheck1">';
+     }
+  
+
+    ?>
     <label class="form-check-label" for="exampleCheck1">Block User</label>
   </div>
-  <button type="submit" name="btnedit" class="btn btn-primary">Submit</button>
+  <button type="submit" name="btnedit" class="btn btn-primary">Edit</button>
 </form>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
