@@ -27,7 +27,7 @@ session_start();
 	<div class="list-group">
   <a class="list-group-item list-group-item-action" href="depts/manage.php">Depts</a>
   <a class="list-group-item list-group-item-action" href="subjects/manage.php">Subjects</a>
-  <a class="list-group-item list-group-item-action" href="tests/manage.php">Tests</a>
+  <a class="list-group-item list-group-item-action" href="tests/index.php">Tests</a>
   <a class="list-group-item list-group-item-action" href="users/manage.php">Users</a>
   <a class="list-group-item list-group-item-danger" href="../logout.php">LogOut</a>
 </div>
